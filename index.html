@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Gonegamer : The repository for the GoneGamer website that centralizes all of it&#39;s files, documentation, and communication surrounding the project.">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Gonegamer</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/SuperSephy/GoneGamer">View on GitHub</a>
+
+          <h1 id="project_title">Gonegamer</h1>
+          <h2 id="project_tagline">The repository for the GoneGamer website that centralizes all of it&#39;s files, documentation, and communication surrounding the project.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/SuperSephy/GoneGamer/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/SuperSephy/GoneGamer/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="gone-gamer-website" class="anchor" href="#gone-gamer-website" aria-hidden="true"><span class="octicon octicon-link"></span></a>Gone Gamer Website</h1>
+
+<h2>
+<a id="description" class="anchor" href="#description" aria-hidden="true"><span class="octicon octicon-link"></span></a>Description:</h2>
+
+<p>Welcome to the new GoneGamer website! We proved that the website is capable of some cool things in version 1, but we all know it's capable of so much more! And this time we're going to do it right! 
+That's right! This time, we're taking away the tedium for hand writing every element and embracing both templating (through laravel's blades) and automation (through Gulp)! This should lay the groundwork for letting users help build the universes they want through simple meta-page creation. 
+We still have a ways to go, but we're off to a good start. Read on and rock on!</p>
+
+<p>URLs</p>
+
+<pre><code>
+    Production
+    http://www.gonegamer.com
+
+    Development - Vagrant
+    http://www.gonegamer.app/
+
+    Test Paths:
+    /test   /register
+            /login
+            /email
+
+</code></pre>
+
+<h2>
+<a id="run-local-development" class="anchor" href="#run-local-development" aria-hidden="true"><span class="octicon octicon-link"></span></a>Run Local Development</h2>
+
+<ul>
+<li>Only if not currently set up:
+
+<ul>
+<li>Install and <a href="http://www.vagrantup.com/downloads.html">Vagrant</a> and <a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox</a>
+</li>
+<li>In terminal, in project directory:
+
+<ul>
+<li>vagrant box add laravel/homestead</li>
+</ul>
+</li>
+<li>Install Homestead:
+
+<ul>
+<li><code>composer global require "laravel/homestead=~2.0"</code></li>
+<li>Add: <code>~/.composer/vendor/bin</code> to Path so <code>homestead</code> command is global</li>
+<li><code>homestead init</code></li>
+</ul>
+</li>
+<li>If on Windows, may need to install the following:
+
+<ul>
+<li>
+<a href="https://www.londonappdeveloper.com/setting-up-your-windows-10-system-for-python-development-pydev-eclipse-python/">Install Python</a>
+
+<ul>
+<li>Only need to follow instructions through including python variable in path</li>
+</ul>
+</li>
+<li>
+<a href="http://www.wampserver.com/en/">Install Wampserver for the php executable</a>
+
+<ul>
+<li>You'll need this during the composer install.</li>
+<li>Find the php.ini file (should be in: conf/php/5.6.X) and enable OpenSSL, and curl options at the least. </li>
+<li>Use the highest available php for best results.</li>
+</ul>
+</li>
+<li><a href="http://gnuwin32.sourceforge.net/packages/openssl.htm">Install OpenSSL</a></li>
+<li>
+<a href="https://getcomposer.org/doc/00-intro.md">Install Composer</a>
+
+<ul>
+<li>Installing python, php, and OpenSSL were all the pre-requisites for this. </li>
+<li>When installing composer, you'll most likely have to choose a php.exe file, make sure to use the php.exe for the php.ini version you set up before.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<pre><code>
+    Edit /etc/hosts: 192.168.10.10 appserv4.app
+    "homestead edit" - map: appserv4.app to: /home/vagrant/Code/appserv4/public
+    homestead up OR vagrant up
+    gonegamer.app/ || gonegamer.app/test
+
+</code></pre>
+
+<h2>
+<a id="install" class="anchor" href="#install" aria-hidden="true"><span class="octicon octicon-link"></span></a>Install</h2>
+
+<p>More detailed instructions can be found <a href="https://github.com/SuperSephy/GoneGamer/wiki/Prep-Work">in our wiki, here</a>. 
+After the general set up is complete, you should be able to run the following install commands:</p>
+
+<pre><code>
+    npm i
+    bower i
+    composer install
+    php artisan key:generate
+
+    vagrant up
+    vagrant ssh
+    cd gonegamer
+    php artisan migrate
+    php artisan db:seed
+
+    (Note: i is terminal accepted shorthand for "install")
+
+</code></pre>
+
+<h2>
+<a id="build-and-publish" class="anchor" href="#build-and-publish" aria-hidden="true"><span class="octicon octicon-link"></span></a>Build and Publish</h2>
+
+<p>This project uses gulp to build the working files using the tasks defined in the <code>/gulpfile.js</code></p>
+
+<pre><code>
+    gulp
+    gulp watch (allows autocompiling of js/css resrouces on save and autoreload if autoreloader plugin installed in browser.)
+    # gulp --production
+
+</code></pre>
+
+<h2>
+<a id="info" class="anchor" href="#info" aria-hidden="true"><span class="octicon octicon-link"></span></a>Info</h2>
+
+<p>List of current plug-ins:
+copy, SASS, uglify, watch</p>
+
+<p>Copy:
+    Copies files directly from one directory to another - useful for moving files that don't need to be compiled, concatenated, uglified, etc.
+    Currently moves external libraries from either bower or node modules into the appropriate resources folder</p>
+
+<p>Sass:
+    Processes multiple .scss documents into a single CSS file
+    REQUIRES referenced source to be list of <a href="https://github.com/import" class="user-mention">@import</a> of all other necessary files
+    Currently uses the resources/assets/scss/app.scss file as import source and processes referenced files into a single public/css/app.css file</p>
+
+<p>Uglify:
+    Takes any javascript file, minifies it, replaces function and variable names with simple characters and outputs it to a selected destination
+    Currently uses the concatenated build/js/&lt;%= pkg.name %&gt;.js file built from all javascript files in the source and outputs the dist/js/&lt;%= pkg.name %&gt;.min.js</p>
+
+<p>Watch:
+    Opens a socket in the command line that looks for designated changes
+    Currently looks for changes made to either src/<strong>/*.html files and runs them through htmlhint or changes made to src/</strong>/*.js files and runs them through jshint
+    Can be expanded to automatically clean, copy, less, cssmin, htmlhint:beforecat, jshint:beforecat, cooncat, uglify, htmlhint:aftercat, jshint:aftercat -&gt; exec:dev</p>
+
+<h2>
+<a id="laravel-php-framework" class="anchor" href="#laravel-php-framework" aria-hidden="true"><span class="octicon octicon-link"></span></a>Laravel PHP Framework</h2>
+
+<p><a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/unstable.svg" alt="Latest Unstable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a></p>
+
+<p>Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.</p>
+
+<p>Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.</p>
+
+<h2>
+<a id="official-documentation" class="anchor" href="#official-documentation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Official Documentation</h2>
+
+<p>Documentation for the framework can be found on the <a href="http://laravel.com/docs">Laravel website</a>.</p>
+
+<h2>
+<a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributing</h2>
+
+<p>Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the <a href="http://laravel.com/docs/contributions">Laravel documentation</a>.</p>
+
+<h2>
+<a id="security-vulnerabilities" class="anchor" href="#security-vulnerabilities" aria-hidden="true"><span class="octicon octicon-link"></span></a>Security Vulnerabilities</h2>
+
+<p>If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at <a href="mailto:taylor@laravel.com">taylor@laravel.com</a>. All security vulnerabilities will be promptly addressed.</p>
+
+<h3>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h3>
+
+<p>The Laravel framework is open-sourced software licensed under the <a href="http://opensource.org/licenses/MIT">MIT license</a></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Gonegamer maintained by <a href="https://github.com/SuperSephy">SuperSephy</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-70785373-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+
+  </body>
+</html>
