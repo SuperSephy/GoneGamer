@@ -1,0 +1,48 @@
+{{!-- 
+    NOTE: HANDLEBARS COMMNETS WON'T BE SHOWN IN BROWSER
+
+    Receives object from route/pages.js
+    {   title:'Home Page',
+        pageName: 'home'
+        url:req.url,
+        query:req.query,
+        env:'local' || 'dev' || 'prod'
+    }
+
+    Uses Handlebars {{ value }} & angular v1 {[ value ]}
+
+--}}
+<!DOCTYPE html>
+
+<html lang="en">
+    <head >
+        <meta charset="utf-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <title>{{title}}</title>
+
+        <link href="/static/{{pageName}}/style.min.css" type="text/css" rel="stylesheet">
+
+        {{!-- {{> default/head_links}} --}}
+
+    </head>
+
+    <body>
+
+        <div class="page">
+
+            <p>This is the {{title}} Page.</p>
+
+            {{!-- "body" is handlebars default to load inner content --}}
+            {{{body}}}
+
+        </div>
+
+        {{!-- {{> default/footer}} --}}
+
+        {{!-- {{> default/modals}} --}}
+
+        <script type="text/javascript" src="static/{{pageName}}/script.min.js"></script>
+
+    </body>
+</html>
