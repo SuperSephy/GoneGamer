@@ -28,16 +28,6 @@ module.exports = function (grunt, options) {
             'postcss:build',
             'concat:release_js',
             'newer:uglify:build'
-        ],
-
-        'heroku': [
-            'newer:clean:game',
-            'newer:copy:fonts',
-            'newer:copy:games',
-            'newer:sass:build',
-            'newer:concat:build_css',
-            'newer:postcss:build',
-            'newer:concat:build_js'
         ]
     };
 };

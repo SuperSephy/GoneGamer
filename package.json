@@ -56,6 +56,6 @@
   "scripts": {
     "start": "node ./bin/www",
     "test": "env NODE_ENV=dev mocha test",
-    "postinstall": "echo executing postinstall; ./node_modules/grunt-cli/bin/grunt heroku"
+    "postinstall": "echo executing postinstall; ./node_modules/grunt-cli/bin/grunt build"
   }
 }
