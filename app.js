@@ -29,8 +29,18 @@ app.io            = io;
 // =========================
 // configuration ===========
 // =========================
-
-mongoose.connect(config.authDatabase);    // connect to database
+if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
+  connection_string = 'mongodb://' +
+    process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
+    process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
+    process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
+    process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
+    process.env.OPENSHIFT_APP_NAME;
+    //'mongodb://127.0.0.1:27017/YOUR_APP_NAME';
+} else {
+  connection_string = config.authDatabase;
+}
+mongoose.connect(connection_string);    // connect to database
 app.set('superSecret', config.secret);    // secret variable
 
 // =========================
