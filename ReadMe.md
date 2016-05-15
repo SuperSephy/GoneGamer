@@ -43,6 +43,28 @@ From the repo directory in your command line, you should only need to run some v
             - http://localhost:8080/auth/setup - Creates a test user in the local mongo
 
 
+## Deployment
 
+Gone Gamer is currently hosted by [openShift](https://openshift.redhat.com). The site is automatically updated with current content on pushed to a specific repo.
 
+### Set up
 
+From the directory
+
+```
+# Of course you can call it whatever you want instead of 'deploy'
+git remote add deploy ssh://5738bc012d5271561300009d@first-gonegamer.rhcloud.com/~/git/first.git/
+
+```
+
+## Deploying
+
+From the directory, after all updates are commited (git)
+
+```
+git push deploy
+```
+
+### After deployment
+
+Currently, the config.js is completely removed on deployment. Until an automatic method is found, you'll either need to set up `rch scp` (openShift's Command Line Interface), set up a SFTP service like Filezilla, or let Ross know so he can put the file back. 
