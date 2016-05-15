@@ -15,7 +15,7 @@ var router = express.Router();
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	index.index(req, function(data){
-		res.render('index', {layout: 'layouts/default', title:'Gone Gamer Home', data: data, things: "test"});
+		res.render('goneGamer/index', {layout: 'layouts/default', title:'Gone Gamer Home', pageName: 'index', data: data, things: "test"});
 	});
 });
 

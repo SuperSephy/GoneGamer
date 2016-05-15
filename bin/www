@@ -18,7 +18,7 @@ if (!process.env.NODE_ENV) {
 
 var app     = require('../app');
 var http    = require('http');
-var debug   = require('debug')('GoneGamer:server');
+var debug   = require('debug')('goneGamer:server');
 
 /**
  * Get port from environment and store in Express.

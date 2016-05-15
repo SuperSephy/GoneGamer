@@ -18,7 +18,7 @@ npm i
 grunt build
 
 # Run the project
-DEBUG=GoneGamer:* NODE_ENV=local nodemon start
+DEBUG=goneGamer:* NODE_ENV=local nodemon start  # if you've globally installed nodemon
     # OR
 NODE_ENV=local npm start
 
@@ -30,7 +30,7 @@ At this point you should be ready to begin contributing.
 
 ## Running the Project Locally
 
-From the repo directory in your command line, you should only need to run some variation of `NODE_ENV=local npm start`, I recommend using `DEBUG=GoneGamer:* NODE_ENV=local nodemon start` if you have nodemon installed globally on your machine. The `DEBUG` will allow route/lib console logging to be more relevant, setting the `NODE_ENV` will let the app know which environment to use (mostly for database switching), and [nodemon](https://www.npmjs.com/package/nodemon) watches for updates to several key files and restarts the service for you - reducing the need to stop and start the service when updating route, lib, etc files. 
+From the repo directory in your command line, you should only need to run some variation of `NODE_ENV=local npm start`, I recommend using `DEBUG=goneGamer:* NODE_ENV=local nodemon start` if you have nodemon installed globally on your machine. The `DEBUG` will allow route/lib console logging to be more relevant, setting the `NODE_ENV` will let the app know which environment to use (mostly for database switching), and [nodemon](https://www.npmjs.com/package/nodemon) watches for updates to several key files and restarts the service for you - reducing the need to stop and start the service when updating route, lib, etc files. 
 
 ## Pages
 - Root Url

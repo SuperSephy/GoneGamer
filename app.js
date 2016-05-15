@@ -30,8 +30,8 @@ app.io            = io;
 // configuration ===========
 // =========================
 
-mongoose.connect(config.authDatabase); // connect to database
-app.set('superSecret', config.secret); // secret variable
+mongoose.connect(config.authDatabase);    // connect to database
+app.set('superSecret', config.secret);    // secret variable
 
 // =========================
 // application init ========
@@ -43,7 +43,8 @@ app.set('view engine', 'hbs');
 
 // Handlebars Partials/Helpers
 hbs.registerPartials(__dirname + '/views/partials');
-hbs.registerHelper('json', function(context) {return JSON.stringify(context).replace(/"/g,"'"); });
+hbs.registerHelper('year',  function() { return new Date().getFullYear(); });
+hbs.registerHelper('json',  function(context) {return JSON.stringify(context); });
 hbs.registerHelper('ifDev', function(options) {if(process.env.NODE_ENV != 'prod') {return options.fn(this); } return options.inverse(this); });
 hbs.registerHelper('isset', function (value, safeValue) {
     var out = value || safeValue;
@@ -52,7 +53,7 @@ hbs.registerHelper('isset', function (value, safeValue) {
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());

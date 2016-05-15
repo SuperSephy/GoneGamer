@@ -1,5 +1,5 @@
 {{!-- 
-    NOTE: HANDLEBARS COMMNETS WON'T BE SHOWN IN BROWSER
+    NOTE: HANDLEBARS COMMENTS WON'T BE SHOWN IN BROWSER
 
     Receives object from route/pages.js
     {   title:'Home Page',
@@ -10,39 +10,37 @@
     }
 
     Uses Handlebars {{ value }} & angular v1 {[ value ]}
+    Note: {{{ unescaped handlebars }}}
 
 --}}
 <!DOCTYPE html>
 
 <html lang="en">
-    <head >
+    <head>
+    
+    <!-- Required meta tags always come first -->
         <meta charset="utf-8">
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
 
         <title>{{title}}</title>
 
-        <link href="/static/{{pageName}}/style.min.css" type="text/css" rel="stylesheet">
-
-        {{!-- {{> default/head_links}} --}}
+        <link href="/static/{{pageName}}/css/style.min.css" type="text/css" rel="stylesheet">
 
     </head>
 
     <body>
 
-        <div class="page">
+        <div class="page" ng-app="goneGamer">
 
-            <p>This is the {{title}} Page.</p>
+            <small>This is the {{title}} Page. (default.hbs)</small>
 
             {{!-- "body" is handlebars default to load inner content --}}
             {{{body}}}
 
         </div>
 
-        {{!-- {{> default/footer}} --}}
-
-        {{!-- {{> default/modals}} --}}
-
-        <script type="text/javascript" src="static/{{pageName}}/script.min.js"></script>
+        <script type="text/javascript" src="/static/{{pageName}}/js/script.min.js"></script>
 
     </body>
 </html>

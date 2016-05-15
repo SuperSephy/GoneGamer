@@ -1,0 +1,104 @@
+
+<div id="loginBox">
+
+	<form name="registerForm" ng-submit="registerSubmit(registerForm.$valid)" novalidate>
+
+		<fieldset>
+
+			<legend>Register</legend>
+			
+			{{!-- Player Name --}}
+			<div class="form-group">
+
+				<div class="input-group" ng-class="{ 'has-danger' : registerForm.playerName.$invalid && !registerForm.playerName.$pristine, 'has-success': registerForm.playerName.$valid && !registerForm.playerName.$pristine}">
+
+					<span class="input-group-addon" id="playerName-addon">Player Name:</span>
+
+					<input type="text" class="form-control" name="playerName" aria-describedby="playerName-addon" ng-model="playerName" ng-minlength="3" required>
+
+				</div>
+
+				<small ng-show="registerForm.playerName.$error.required && !registerForm.playerName.$pristine" class="help-block">*Your name is required.</small>
+
+			</div>
+
+			{{!-- Username --}}
+			<div class="form-group">
+
+				<div class="input-group" ng-class="{ 'has-danger' : registerForm.userid.$invalid && !registerForm.userid.$pristine, 'has-success': registerForm.userid.$valid && !registerForm.userid.$pristine}">
+
+					<span class="input-group-addon" id="userid-addon">Username:</span>
+
+					<input type="text" class="form-control" name="userid" aria-describedby="userid-addon userid-addon2" ng-model="userid" ng-minlength="4" ng-maxlength="20" required>
+					
+					<span class="input-group-btn">
+
+						<button class="btn btn-primary-outline" type="button" ng-disabled="registerForm.userid.$invalid">
+
+							<i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Check availability
+						</button>
+
+					</span>
+
+				</div>
+
+				<small ng-show="registerForm.userid.$error.required && !registerForm.userid.$pristine" class="help-block">*Please select a username.</small>
+
+				<small ng-show="registerForm.userid.$error.minlength" class="help-block">Username is too short. (minimum of 4 characters)</small>
+
+    			<small ng-show="registerForm.userid.$error.maxlength" class="help-block">Username is too long. (maximum of 20 characters)</small>
+
+			</div>
+
+			{{!-- Password --}}
+			<div class="form-group">
+
+				<div class="input-group" ng-class="{ 'has-danger' : registerForm.password.$invalid && !registerForm.password.$pristine, 'has-success': registerForm.password.$valid && !registerForm.password.$pristine}">
+
+					<span class="input-group-addon" id="password-addon">Password:</span>
+
+					<input type="password" class="form-control" name="password" aria-describedby="password-addon" ng-model="password" required>
+
+				</div>
+
+			</div>
+
+			{{!-- Password2 --}}
+			<div class="form-group">
+
+				<div class="input-group" ng-class="{ 'has-danger' : registerForm.password2.$invalid && !registerForm.password2.$pristine, 'has-success': (password == password2) && registerForm.password2.$valid && !registerForm.password2.$pristine, 'has-warning': (password != password2) && registerForm.password2.$touched}">
+
+					<span class="input-group-addon" id="password2-addon">Confirm Password:</span>
+
+					<input type="password" class="form-control" name="password2" aria-describedby="password2-addon" ng-model="password2" required>
+
+				</div>
+
+				<small ng-show="(password != password2) && registerForm.password2.$touched">Your passwords don't seem to match...</small>
+
+			</div>
+
+			{{!-- eMail --}}
+			<div class="form-group">
+
+				<div class="input-group" ng-class="{ 'has-danger' : registerForm.email.$invalid && !registerForm.email.$pristine, 'has-success': registerForm.email.$valid && !registerForm.email.$pristine}">
+
+					<span class="input-group-addon" id="email-addon">eMail:</span>
+
+					<input type="email" class="form-control" name="email" aria-describedby="email-addon" ng-model="email" required ng-pattern="">
+
+				</div>
+
+				<small ng-show="registerForm.email.$error.required && !registerForm.email.$pristine" class="help-block">*Your email is required - we will only use it in case you need to reset your password.</small>
+
+				<small ng-show="registerForm.email.$error.email && !registerForm.email.$pristine" class="help-block">*Please enter a valid email address</small>
+
+			</div>
+
+		</fieldset>
+
+		<button type="submit" class="btn btn-block btn-success" ng-disabled="registerForm.$invalid">Register</button>
+
+	</form>
+
+</div>

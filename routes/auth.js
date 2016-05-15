@@ -41,4 +41,32 @@ router.get('/setup', function(req, res) {
 
 });
 
+router
+	.all('/register', function(req, res) {
+		var userid 		= req.body.userid 		? req.body.userid 		: req.query.userid,
+			playerName 	= req.body.playerName 	? req.body.playerName 	: req.query.playerName,
+			password 	= req.body.password 	? req.body.password 	: req.query.password,
+			email 		= req.body.email 		? req.body.email 		: req.query.email;
+
+		console.log(['inputs',{playerName: playerName, password: password, email: email}]);
+
+		var user = new User({
+			userid: 	userid,
+			playerName: playerName,
+			password: 	password,
+			email: 		email
+		});
+
+		// console.log(['user model:', user]);
+		// return res.json({success: true, user_model: user});
+
+		user.save(function(err){
+			if (err) throw err;
+			
+			console.log(['user model:', user]);
+			return res.json({success: true, user_model: user});
+		});
+
+	});
+
 module.exports = router;

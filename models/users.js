@@ -4,7 +4,15 @@ var Schema = mongoose.Schema;
 
 // set up a mongoose model and pass it using module.exports
 module.exports = mongoose.model('User', new Schema({ 
-    name: String, 
-    password: String, 
-    admin: Boolean 
+	userid: 	{ type: String, required: true, trim: true},
+    playerName: { type: String, required: true, trim: true }, 
+    password: 	{ type: String, required: true }, 
+    email: 		{ type: String, required: true },
+
+    last_login: Date,
+    inactive: 	Boolean,
+
+    admin: 		Boolean 
+}, {
+	timestamps: true
 }));

@@ -32,3 +32,6 @@ npm-debug.log
 
 # IDE Configs
 .idea
+
+# Configs
+config.js

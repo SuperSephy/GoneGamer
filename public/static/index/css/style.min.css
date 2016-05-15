@@ -1,4 +1,14 @@
-/*! GoneGamerNode 2016-05-02 *//*!
+/*! GoneGamerNode 2016-05-14 */.tether-element, .tether-element:after, .tether-element:before, .tether-element *, .tether-element *:after, .tether-element *:before {
+  box-sizing: border-box; }
+
+.tether-element {
+  position: absolute;
+  display: none; }
+  .tether-element.tether-open {
+    display: block; }
+
+
+/*!
  * Bootstrap v4.0.0-alpha.2 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
