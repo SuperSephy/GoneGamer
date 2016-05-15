@@ -1,4 +1,4 @@
-/*! GoneGamerNode 2016-05-14 */.tether-element, .tether-element:after, .tether-element:before, .tether-element *, .tether-element *:after, .tether-element *:before {
+/*! GoneGamerNode 2016-05-15 */.tether-element, .tether-element:after, .tether-element:before, .tether-element *, .tether-element *:after, .tether-element *:before {
   box-sizing: border-box; }
 
 .tether-element {
@@ -8969,3 +8969,9 @@ a.bg-danger:focus, a.bg-danger:hover {
   100% {
     -webkit-transform: rotate(360deg);
             transform: rotate(360deg); } }
+
+
+#registerBox form[name="registerForm"] fieldset .input-group {
+  width: 100%; }
+  #registerBox form[name="registerForm"] fieldset .input-group .input-group-addon {
+    width: 145px; }

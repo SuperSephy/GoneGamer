@@ -1,5 +1,5 @@
 
-<div id="loginBox">
+<div id="registerBox">
 
 	<form name="registerForm" ng-submit="registerSubmit(registerForm.$valid)" novalidate>
 
@@ -10,11 +10,11 @@
 			{{!-- Player Name --}}
 			<div class="form-group">
 
-				<div class="input-group" ng-class="{ 'has-danger' : registerForm.playerName.$invalid && !registerForm.playerName.$pristine, 'has-success': registerForm.playerName.$valid && !registerForm.playerName.$pristine}">
+				<div class="input-group input-group-sm" ng-class="{ 'has-danger' : registerForm.playerName.$invalid && !registerForm.playerName.$pristine, 'has-success': registerForm.playerName.$valid && !registerForm.playerName.$pristine}">
 
 					<span class="input-group-addon" id="playerName-addon">Player Name:</span>
 
-					<input type="text" class="form-control" name="playerName" aria-describedby="playerName-addon" ng-model="playerName" ng-minlength="3" required>
+					<input type="text" class="form-control" name="playerName" aria-describedby="playerName-addon" ng-model="playerName" ng-minlength="3" ng-class="{ 'form-control-danger' : registerForm.playerName.$invalid && !registerForm.playerName.$pristine, 'form-control-success': registerForm.playerName.$valid && !registerForm.playerName.$pristine}" required>
 
 				</div>
 
@@ -25,11 +25,11 @@
 			{{!-- Username --}}
 			<div class="form-group">
 
-				<div class="input-group" ng-class="{ 'has-danger' : registerForm.userid.$invalid && !registerForm.userid.$pristine, 'has-success': registerForm.userid.$valid && !registerForm.userid.$pristine}">
+				<div class="input-group input-group-sm" ng-class="{ 'has-danger' : registerForm.userid.$invalid && !registerForm.userid.$pristine, 'has-success': registerForm.userid.$valid && !registerForm.userid.$pristine}">
 
 					<span class="input-group-addon" id="userid-addon">Username:</span>
 
-					<input type="text" class="form-control" name="userid" aria-describedby="userid-addon userid-addon2" ng-model="userid" ng-minlength="4" ng-maxlength="20" required>
+					<input type="text" class="form-control" name="userid" aria-describedby="userid-addon userid-addon2" ng-model="userid" ng-minlength="4" ng-maxlength="20" ng-class="{ 'form-control-danger' : registerForm.userid.$invalid && !registerForm.userid.$pristine, 'form-control-success': registerForm.userid.$valid && !registerForm.userid.$pristine}" required>
 					
 					<span class="input-group-btn">
 
@@ -53,11 +53,11 @@
 			{{!-- Password --}}
 			<div class="form-group">
 
-				<div class="input-group" ng-class="{ 'has-danger' : registerForm.password.$invalid && !registerForm.password.$pristine, 'has-success': registerForm.password.$valid && !registerForm.password.$pristine}">
+				<div class="input-group input-group-sm" ng-class="{ 'has-danger' : registerForm.password.$invalid && !registerForm.password.$pristine, 'has-success': registerForm.password.$valid && !registerForm.password.$pristine}">
 
 					<span class="input-group-addon" id="password-addon">Password:</span>
 
-					<input type="password" class="form-control" name="password" aria-describedby="password-addon" ng-model="password" required>
+					<input type="password" class="form-control" name="password" aria-describedby="password-addon" ng-model="password" ng-class="{ 'form-control-danger' : registerForm.password.$invalid && !registerForm.password.$pristine, 'form-control-success': registerForm.password.$valid && !registerForm.password.$pristine}" required>
 
 				</div>
 
@@ -66,11 +66,11 @@
 			{{!-- Password2 --}}
 			<div class="form-group">
 
-				<div class="input-group" ng-class="{ 'has-danger' : registerForm.password2.$invalid && !registerForm.password2.$pristine, 'has-success': (password == password2) && registerForm.password2.$valid && !registerForm.password2.$pristine, 'has-warning': (password != password2) && registerForm.password2.$touched}">
+				<div class="input-group input-group-sm" ng-class="{ 'has-danger' : registerForm.password2.$invalid && !registerForm.password2.$pristine, 'has-success': (password == password2) && registerForm.password2.$valid && !registerForm.password2.$pristine, 'has-warning': (password != password2) && registerForm.password2.$touched}">
 
 					<span class="input-group-addon" id="password2-addon">Confirm Password:</span>
 
-					<input type="password" class="form-control" name="password2" aria-describedby="password2-addon" ng-model="password2" required>
+					<input type="password" class="form-control" name="password2" aria-describedby="password2-addon" ng-model="password2"  ng-class="{ 'form-control-danger' : registerForm.password2.$invalid && !registerForm.password2.$pristine, 'form-control-success': (password == password2) && registerForm.password2.$valid && !registerForm.password2.$pristine, 'form-control-warning': (password != password2) && registerForm.password2.$touched}" required>
 
 				</div>
 
@@ -81,11 +81,11 @@
 			{{!-- eMail --}}
 			<div class="form-group">
 
-				<div class="input-group" ng-class="{ 'has-danger' : registerForm.email.$invalid && !registerForm.email.$pristine, 'has-success': registerForm.email.$valid && !registerForm.email.$pristine}">
+				<div class="input-group input-group-sm" ng-class="{ 'has-danger' : registerForm.email.$invalid && !registerForm.email.$pristine, 'has-success': registerForm.email.$valid && !registerForm.email.$pristine}">
 
 					<span class="input-group-addon" id="email-addon">eMail:</span>
 
-					<input type="email" class="form-control" name="email" aria-describedby="email-addon" ng-model="email" required ng-pattern="">
+					<input type="email" class="form-control" name="email" aria-describedby="email-addon" ng-model="email" ng-class="{ 'form-control-danger' : registerForm.email.$invalid && !registerForm.email.$pristine, 'form-control-success': registerForm.email.$valid && !registerForm.email.$pristine}" required>
 
 				</div>
 
@@ -97,7 +97,7 @@
 
 		</fieldset>
 
-		<button type="submit" class="btn btn-block btn-success" ng-disabled="registerForm.$invalid">Register</button>
+		<button type="submit" class="btn btn-block btn-success btn-sm" ng-disabled="registerForm.$invalid || ( (password != password2) && registerForm.password2.$touched )">Register</button>
 
 	</form>
 

@@ -6,7 +6,7 @@ module.exports = function(grunt, options) {
 	    },
 	    build: {
 	        files: {
-	            'build/style.css': 'src/css/main.scss'
+	            'build/style.css': 'src/index/css/main.scss'
 	        }
 	    }
 	}; // End return object
