@@ -19,7 +19,7 @@ var router 		= express.Router();
 router.post('/authenticate', function(req, res) {
 	console.log(req.app.get('superSecret'));
 
-  // find the user
+  	// find the user
 	User.findOne({
 	  name: req.body.name
 	}, function(err, user) {

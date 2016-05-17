@@ -23,26 +23,10 @@ angular
 	})
 
 	// Overall Index Controller
-	.controller('indexCtrl', function($scope, $location) {
+	.controller('indexCtrl', function($scope, globalServices) {
 
-		console.log('indexCtrl Loaded.');
-
-		$scope.registerSubmit = function(isValid){
-
-			if (isValid) {
-
-				var playerName 	= this.playerName,
-					email 		= this.email,
-					userid 		= this.userid,
-					password 	= this.password;
-
-				console.log({playerName: playerName, email: email, userid: userid, password: password});
-				
-			} else {
-				console.log('Form not valid');
-			}
-
-		}
+		var logr = function(message) {globalServices.logr(message, 'indexCtrl'); }
+		logr('Registered.');
 
 	});
 

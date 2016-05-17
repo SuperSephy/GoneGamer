@@ -1,20 +1,38 @@
 
 <div id="loginBox">
-	<small>Log In Form (partials/logInBox.hbs)</small>
-	<form>
+
+	<form name="loginForm" ng-submit="loginSubmit(loginForm.$valid)" novalidate>
+
 		<fieldset>
+
 			<legend>Log In</legend>
 			
+			{{!-- Username --}}
 			<div class="form-group">
-				<div class="input-group">
-				  <span class="input-group-addon" id="userid-addon">Username:</span>
-				  <input type="text" class="form-control" id="userid" aria-describedby="userid-addon">
-				</div><br>
 
-				<div class="input-group">
-				  <span class="input-group-addon" id="password-addon">Password:</span>
-				  <input type="password" class="form-control" id="password" aria-describedby="password-addon">
+				<div class="input-group input-group-sm">
+
+				  <span class="input-group-addon" id="userid-addon">Username:</span>
+
+				  <input type="text" class="form-control" id="userid" aria-describedby="userid-addon" required>
+
 				</div>
+				
+				<small ng-show="loginForm.userid.$error.required && !loginForm.userid.$pristine" class="help-block">*Please select a username.</small>
+
+			</div>
+
+			{{!-- Password --}}
+			<div class="form-group">
+
+				<div class="input-group input-group-sm">
+
+				  <span class="input-group-addon" id="password-addon">Password:</span>
+
+				  <input type="password" class="form-control" id="password" aria-describedby="password-addon" required>
+
+				</div>
+
 			</div>
 
 		</fieldset>
@@ -27,7 +45,7 @@
 				</label>
 			</div>
 
-			<button class="btn btn-primary col-xs-9">Log In</button>
+			<button class="btn btn-primary btn-sm col-xs-9">Log In</button>
 			
 		</div>
 

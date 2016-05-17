@@ -1,5 +1,5 @@
 
-<div id="registerBox">
+<div id="registerBox" ng-controller="registrationCtrl">
 
 	<form name="registerForm" ng-submit="registerSubmit(registerForm.$valid)" novalidate>
 
@@ -14,7 +14,7 @@
 
 					<span class="input-group-addon" id="playerName-addon">Player Name:</span>
 
-					<input type="text" class="form-control" name="playerName" aria-describedby="playerName-addon" ng-model="playerName" ng-minlength="3" ng-class="{ 'form-control-danger' : registerForm.playerName.$invalid && !registerForm.playerName.$pristine, 'form-control-success': registerForm.playerName.$valid && !registerForm.playerName.$pristine}" required>
+					<input type="text" class="form-control" name="playerName" aria-describedby="playerName-addon" ng-model="newUser.playerName" ng-minlength="3" ng-class="{ 'form-control-danger' : registerForm.playerName.$invalid && !registerForm.playerName.$pristine, 'form-control-success': registerForm.playerName.$valid && !registerForm.playerName.$pristine}" required>
 
 				</div>
 
@@ -25,15 +25,15 @@
 			{{!-- Username --}}
 			<div class="form-group">
 
-				<div class="input-group input-group-sm" ng-class="{ 'has-danger' : registerForm.userid.$invalid && !registerForm.userid.$pristine, 'has-success': registerForm.userid.$valid && !registerForm.userid.$pristine}">
+				<div class="input-group input-group-sm" ng-class="{ 'has-danger' : registerForm.userID.$invalid && !registerForm.userID.$pristine || checkedIDs[newUser.userID] == 'unavailable', 'has-success': registerForm.userID.$valid && !registerForm.userID.$pristine && checkedIDs[newUser.userID] == 'available', 'has-warning': registerForm.userID.$valid && !registerForm.userID.$pristine && !checkedIDs[newUser.userID]}">
 
-					<span class="input-group-addon" id="userid-addon">Username:</span>
+					<span class="input-group-addon" id="userID-addon">Username:</span>
 
-					<input type="text" class="form-control" name="userid" aria-describedby="userid-addon userid-addon2" ng-model="userid" ng-minlength="4" ng-maxlength="20" ng-class="{ 'form-control-danger' : registerForm.userid.$invalid && !registerForm.userid.$pristine, 'form-control-success': registerForm.userid.$valid && !registerForm.userid.$pristine}" required>
+					<input type="text" class="form-control" name="userID" aria-describedby="userID-addon userID-addon2" ng-model="newUser.userID" ng-minlength="4" ng-maxlength="20" ng-class="{ 'form-control-danger' : registerForm.userID.$invalid && !registerForm.userID.$pristine || checkedIDs[newUser.userID] == 'unavailable' , 'form-control-success': registerForm.userID.$valid && !registerForm.userID.$pristine && checkedIDs[newUser.userID] == 'available', 'form-control-warning': registerForm.userID.$valid && !registerForm.userID.$pristine && !checkedIDs[newUser.userID] }" required>
 					
 					<span class="input-group-btn">
 
-						<button class="btn btn-primary-outline" type="button" ng-disabled="registerForm.userid.$invalid">
+						<button class="btn" type="button" ng-click="checkUserID(newUser.userID)" ng-disabled="registerForm.userID.$invalid || checkedIDs[newUser.userID]" ng-class="{ 'btn-primary': !checkedIDs[newUser.userID], 'btn-success': checkedIDs[newUser.userID] == 'available', 'btn-danger': checkedIDs[newUser.userID] == 'unavailable'}">
 
 							<i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Check availability
 						</button>
@@ -42,11 +42,13 @@
 
 				</div>
 
-				<small ng-show="registerForm.userid.$error.required && !registerForm.userid.$pristine" class="help-block">*Please select a username.</small>
+				<small ng-show="registerForm.userID.$error.required && !registerForm.userID.$pristine" class="help-block">*Please select a username.</small>
+				<small ng-show="registerForm.userID.$error.minlength" class="help-block">Username is too short. (minimum of 4 characters)</small>
+    			<small ng-show="registerForm.userID.$error.maxlength" class="help-block">Username is too long. (maximum of 20 characters)</small>
+    			<small ng-show="checkedIDs[newUser.userID]" class="help-block">"{[newUser.userID]}" is <span ng-bind="checkedIDs[newUser.userID]"></span></small>
 
-				<small ng-show="registerForm.userid.$error.minlength" class="help-block">Username is too short. (minimum of 4 characters)</small>
-
-    			<small ng-show="registerForm.userid.$error.maxlength" class="help-block">Username is too long. (maximum of 20 characters)</small>
+    			<br>
+    			<pre ng-bind="checkIDs[newUser.userID]"></pre>
 
 			</div>
 
@@ -57,7 +59,7 @@
 
 					<span class="input-group-addon" id="password-addon">Password:</span>
 
-					<input type="password" class="form-control" name="password" aria-describedby="password-addon" ng-model="password" ng-class="{ 'form-control-danger' : registerForm.password.$invalid && !registerForm.password.$pristine, 'form-control-success': registerForm.password.$valid && !registerForm.password.$pristine}" required>
+					<input type="password" class="form-control" name="password" aria-describedby="password-addon" ng-model="newUser.password" ng-class="{ 'form-control-danger' : registerForm.password.$invalid && !registerForm.password.$pristine, 'form-control-success': registerForm.password.$valid && !registerForm.password.$pristine}" required>
 
 				</div>
 
@@ -66,15 +68,17 @@
 			{{!-- Password2 --}}
 			<div class="form-group">
 
-				<div class="input-group input-group-sm" ng-class="{ 'has-danger' : registerForm.password2.$invalid && !registerForm.password2.$pristine, 'has-success': (password == password2) && registerForm.password2.$valid && !registerForm.password2.$pristine, 'has-warning': (password != password2) && registerForm.password2.$touched}">
+				<div class="input-group input-group-sm" ng-class="{ 'has-danger' : registerForm.password2.$invalid && !registerForm.password2.$pristine, 'has-success': (newUser.password == newUser.password2) && registerForm.password2.$valid && !registerForm.password2.$pristine, 'has-warning': (newUser.password != newUser.password2) && registerForm.password2.$touched}">
 
 					<span class="input-group-addon" id="password2-addon">Confirm Password:</span>
 
-					<input type="password" class="form-control" name="password2" aria-describedby="password2-addon" ng-model="password2"  ng-class="{ 'form-control-danger' : registerForm.password2.$invalid && !registerForm.password2.$pristine, 'form-control-success': (password == password2) && registerForm.password2.$valid && !registerForm.password2.$pristine, 'form-control-warning': (password != password2) && registerForm.password2.$touched}" required>
+					<input type="password" class="form-control" name="password2" aria-describedby="password2-addon" ng-model="newUser.password2"  ng-class="{ 'form-control-danger' : registerForm.password2.$invalid && !registerForm.password2.$pristine, 'form-control-success': (newUser.password == newUser.password2) && registerForm.password2.$valid && !registerForm.password2.$pristine, 'form-control-warning': (newUser.password != newUser.password2) && registerForm.password2.$touched}" required>
 
 				</div>
 
-				<small ng-show="(password != password2) && registerForm.password2.$touched">Your passwords don't seem to match...</small>
+				<small ng-show="registerForm.password2.$error.required && !registerForm.password2.$pristine">Please confirm the password typed above.</small>
+
+				<small ng-show="!registerForm.password2.$error.required && (newUser.password != newUser.password2) && registerForm.password2.$touched">Your passwords don't seem to match...</small>
 
 			</div>
 
@@ -85,7 +89,7 @@
 
 					<span class="input-group-addon" id="email-addon">eMail:</span>
 
-					<input type="email" class="form-control" name="email" aria-describedby="email-addon" ng-model="email" ng-class="{ 'form-control-danger' : registerForm.email.$invalid && !registerForm.email.$pristine, 'form-control-success': registerForm.email.$valid && !registerForm.email.$pristine}" required>
+					<input type="email" class="form-control" name="email" aria-describedby="email-addon" ng-model="newUser.email" ng-class="{ 'form-control-danger' : registerForm.email.$invalid && !registerForm.email.$pristine, 'form-control-success': registerForm.email.$valid && !registerForm.email.$pristine}" required>
 
 				</div>
 
@@ -97,7 +101,7 @@
 
 		</fieldset>
 
-		<button type="submit" class="btn btn-block btn-success btn-sm" ng-disabled="registerForm.$invalid || ( (password != password2) && registerForm.password2.$touched )">Register</button>
+		<button type="submit" class="btn btn-block btn-success btn-sm" ng-disabled="registerForm.$invalid || ( (newUser.password != newUser.password2) && registerForm.password2.$touched ) || !registerForm.password2.$touched || (checkedIDs[newUser.userID] != 'available')">Register</button>
 
 	</form>
 
