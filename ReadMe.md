@@ -39,8 +39,10 @@ From the repo directory in your command line, you should only need to run some v
     + Index
         * http://localhost:8080 - Currently a test home page
     + Auth
-        * Set Up
-            - http://localhost:8080/auth/setup - Creates a test user in the local mongo
+        * HTTP POSTS
+            - /auth/checkUserID
+            - /auth/register
+            - /auth/login
 
 
 ## Deployment

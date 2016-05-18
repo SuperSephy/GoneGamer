@@ -5,8 +5,6 @@ angular
 		var logr = function(message) {globalServices.logr(message, 'registrationCtrl'); }
 		logr('Registered.');
 
-
-
 		/**
 		 * Checks if userID is available
 		 */
@@ -50,7 +48,7 @@ angular
 				logr(regUser);
 
 				$http
-					.post('/auth/registerUser', regUser)
+					.post('/auth/register', regUser)
 					.then(function(result){
 						logr(['registerSubmit - response', result.data])
 					});

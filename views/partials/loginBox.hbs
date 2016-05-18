@@ -1,37 +1,36 @@
 
-<div id="loginBox">
+<div id="loginBox" ng-controller="loginCtrl">
+
+	<div class="alert alert-danger" role="alert" ng-show="loginFail != null" ng-cloak>
+		<span ng-show="loginFail == 0"><strong>
+			Oops!</strong> Sorry, we couldn't find that Username.
+		</span>
+		<span ng-show="loginFail == 1" ng-cloak>
+			<strong>Oops!</strong> Sorry, that password doesn't seem to match what we have on file. <span ng-bind="numAttempts"></span> attempt(s) remaining - then we will lock the account for an hour. You may reset your password during this time.
+		</span>
+		<span ng-show="loginFail == 2" ng-cloak>
+			<strong>Oops!</strong> There have been too many recent attempts on your account and it has been locked until <span ng-bind="lockedUntil | date:short"></span> for your protection. You may still request a password reset.
+		</span>
+	</div>
 
 	<form name="loginForm" ng-submit="loginSubmit(loginForm.$valid)" novalidate>
 
 		<fieldset>
 
 			<legend>Log In</legend>
-			
-			{{!-- Username --}}
-			<div class="form-group">
 
-				<div class="input-group input-group-sm">
+			{{!-- Username & Password --}}
+			<div class="form-group" ng-repeat="(key, field) in fields">
 
-				  <span class="input-group-addon" id="userid-addon">Username:</span>
+				<div class="input-group input-group-sm" ng-class="{ 'has-danger' : loginForm[key].$invalid && !loginForm[key].$pristine, 'has-success': loginForm[key].$valid && !loginForm[key].$pristine }">
 
-				  <input type="text" class="form-control" id="userid" aria-describedby="userid-addon" required>
+				  <span class="input-group-addon" id="{[field.string]}-addon" ng-bind="field.string+':'"></span>
+
+				  <input type="{[field.type]}" class="form-control" name="{[key]}" ng-model="loginUser[key]" ng-class="{ 'form-control-danger' : loginForm[key].$invalid && loginForm[key].$touched, 'form-control-success': loginForm[key].$valid && !loginForm[key].$pristine}" aria-describedby="{[key.string]}-addon" ng-minlength="field.minLength" ng-maxlength="field.maxLength" required>
 
 				</div>
 				
-				<small ng-show="loginForm.userid.$error.required && !loginForm.userid.$pristine" class="help-block">*Please select a username.</small>
-
-			</div>
-
-			{{!-- Password --}}
-			<div class="form-group">
-
-				<div class="input-group input-group-sm">
-
-				  <span class="input-group-addon" id="password-addon">Password:</span>
-
-				  <input type="password" class="form-control" id="password" aria-describedby="password-addon" required>
-
-				</div>
+				<small ng-show="loginForm[key].$error.required && !loginForm[key].$pristine" class="help-block">*Please enter your {[field.string]}.</small>
 
 			</div>
 

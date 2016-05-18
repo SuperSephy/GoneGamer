@@ -17,4 +17,8 @@ angular
 
 		// White List file file download
 		$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|tel|file|blob):/);
+	})
+
+	.controller('registrationCtrl', function($scope, $filter){
+
 	});
