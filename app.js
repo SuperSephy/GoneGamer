@@ -16,6 +16,7 @@ var app           = new express(),
     cookieParser  = require('cookie-parser'),
     bodyParser    = require('body-parser'),
 
+    session       = require('express-session'),                 // used to manage sessions (used with MongoDBStore below)
     jwt           = require('jsonwebtoken'),                    // used to create, sign, and verify tokens
     mongoose      = require('mongoose'),                        // used to access mongo db
     Firebase      = require('firebase'),                        // used for chat
@@ -23,6 +24,7 @@ var app           = new express(),
     log           = require('debug')('goneGamer:app.js'),
     io            = require('socket.io')({path: '/socket.io'});
 
+MongoDBStore      = require('connect-mongodb-session')(session);// used to access session data in mongoDB
 app.io            = io;
 // module.exports    = io;
 
@@ -40,8 +42,38 @@ if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
 } else {
   connection_string = config.authDatabase;
 }
-mongoose.connect(connection_string);    // connect to database
-app.set('superSecret', config.secret);    // secret variable
+mongoose.connect(connection_string);                          // connect to database
+app.set('superSecret', config.secret);                        // secret variable
+
+
+// =========================
+// session store ===========
+// =========================
+var store = new MongoDBStore({ 
+  uri: connection_string,
+  collection: 'sessions',
+  expires: Date.now() + (30 * 24 * 60 * 60 * 1000)
+});
+console.log(Date.now());
+console.log(Date.now() + (30 * 24 * 60 * 60 * 1000));
+
+// Catch errors 
+store.on('error', function(error) {
+  if (error) throw error;
+});
+
+app.use(require('express-session')({
+  // name: 'x-session-id',                                    // default is connect.sid
+  secret: config.secret,
+  cookie: {
+    // maxAge: 1000 * 60 * 60 * 24 * 7 // 1 week 
+    maxAge: null
+  },
+  store: store,
+  resave: true,
+  saveUninitialized: true
+}));
+
 
 // =========================
 // application init ========

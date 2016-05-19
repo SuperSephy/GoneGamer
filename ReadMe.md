@@ -45,6 +45,17 @@ From the repo directory in your command line, you should only need to run some v
             - /auth/login
 
 
+## Developer Info
+
+Databases:
+- MySQL
+- MongoDB
+- Firebase.
+
+The project uses [Express-Session](https://www.npmjs.com/package/express-session) and [Connect-Mongo-Session](https://www.npmjs.com/package/connect-mongodb-session) for managing session info. 
+
+May introduce [JSON Web Tokens](https://www.npmjs.com/package/jsonwebtoken) later.
+
 ## Deployment
 
 Gone Gamer is currently hosted by [openShift](https://openshift.redhat.com). The site is automatically updated with current content on pushed to a specific repo.
