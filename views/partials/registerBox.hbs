@@ -47,9 +47,6 @@
     			<small ng-show="registerForm.userID.$error.maxlength" class="help-block">Username is too long. (maximum of 20 characters)</small>
     			<small ng-show="checkedIDs[newUser.userID]" class="help-block">"{[newUser.userID]}" is <span ng-bind="checkedIDs[newUser.userID]"></span></small>
 
-    			<br>
-    			<pre ng-bind="checkIDs[newUser.userID]"></pre>
-
 			</div>
 
 			{{!-- Password --}}
