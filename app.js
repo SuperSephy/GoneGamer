@@ -22,7 +22,9 @@ var app           = new express(),
     Firebase      = require('firebase'),                        // used for chat
 
     log           = require('debug')('goneGamer:app.js'),
-    io            = require('socket.io')({path: '/socket.io'});
+    io            = require('socket.io')({path: '/socket.io'}),
+
+    databases     = config.databases[env];
 
 MongoDBStore      = require('connect-mongodb-session')(session);// used to access session data in mongoDB
 app.io            = io;
@@ -39,9 +41,15 @@ if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
     process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
     process.env.OPENSHIFT_APP_NAME;
     //'mongodb://localhost:27017/goneGamer';
+} else if (process.env.MONGOLAB_URI) {
+  connection_string = process.env.MONGOLAB_URI;
 } else {
-  connection_string = config.authDatabase;
+  connection_string =   'mongodb://';
+  connection_string +=  databases.mongo.users.goneGamer.user  ? databases.mongo.users.goneGamer.user + ":"  : '';
+  connection_string +=  databases.mongo.users.goneGamer.pwd   ? databases.mongo.users.goneGamer.pwd + "@"   : '';
+  connection_string +=  databases.mongo.host + ":" + databases.mongo.port + "/" + databases.mongo.users.goneGamer.db;
 }
+console.log('Connection String: '+connection_string);
 mongoose.connect(connection_string);                          // connect to database
 app.set('superSecret', config.secret);                        // secret variable
 
