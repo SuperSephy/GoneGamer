@@ -33,23 +33,14 @@ app.io            = io;
 // =========================
 // configuration ===========
 // =========================
-if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
-  connection_string = 'mongodb://' +
-    process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
-    process.env.OPENSHIFT_MONGODB_DB_PASSWORD + "@" +
-    process.env.OPENSHIFT_MONGODB_DB_HOST + ':' +
-    process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
-    process.env.OPENSHIFT_APP_NAME;
-    //'mongodb://localhost:27017/goneGamer';
-} else if (process.env.MONGOLAB_URI) {
-  connection_string = process.env.MONGOLAB_URI;
-} else {
-  connection_string =   'mongodb://';
-  connection_string +=  databases.mongo.users.goneGamer.user  ? databases.mongo.users.goneGamer.user + ":"  : '';
-  connection_string +=  databases.mongo.users.goneGamer.pwd   ? databases.mongo.users.goneGamer.pwd + "@"   : '';
-  connection_string +=  databases.mongo.host + ":" + databases.mongo.port + "/" + databases.mongo.users.goneGamer.db;
-}
+
+
+var connection_string =   'mongodb://';
+    connection_string +=  databases.mongo.users.goneGamer.user  ? databases.mongo.users.goneGamer.user + ":"  : '';
+    connection_string +=  databases.mongo.users.goneGamer.pwd   ? databases.mongo.users.goneGamer.pwd + "@"   : '';
+    connection_string +=  databases.mongo.host + ":" + databases.mongo.port + "/" + databases.mongo.users.goneGamer.db;
 console.log('Connection String: '+connection_string);
+
 mongoose.connect(connection_string);                          // connect to database
 app.set('superSecret', config.secret);                        // secret variable
 
