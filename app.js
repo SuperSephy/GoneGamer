@@ -36,9 +36,9 @@ app.io            = io;
 
 
 var connection_string =   'mongodb://';
-    connection_string +=  databases.mongo.users.goneGamer.user  ? databases.mongo.users.goneGamer.user + ":"  : '';
-    connection_string +=  databases.mongo.users.goneGamer.pwd   ? databases.mongo.users.goneGamer.pwd + "@"   : '';
-    connection_string +=  databases.mongo.host + ":" + databases.mongo.port + "/" + databases.mongo.users.goneGamer.db;
+  connection_string +=  databases.mongo.users.goneGamer.user  ? databases.mongo.users.goneGamer.user + ":"  : '';
+  connection_string +=  databases.mongo.users.goneGamer.pwd   ? databases.mongo.users.goneGamer.pwd + "@"   : '';
+  connection_string +=  databases.mongo.host + ":" + databases.mongo.port + "/" + databases.mongo.users.goneGamer.db;
 console.log('Connection String: '+connection_string);
 
 mongoose.connect(connection_string);                          // connect to database
@@ -53,8 +53,6 @@ var store = new MongoDBStore({
   collection: 'sessions',
   expires: Date.now() + (30 * 24 * 60 * 60 * 1000)
 });
-console.log(Date.now());
-console.log(Date.now() + (30 * 24 * 60 * 60 * 1000));
 
 // Catch errors 
 store.on('error', function(error) {
@@ -82,15 +80,14 @@ app.use(require('express-session')({
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
 
-// Handlebars Partials/Helpers
+// Handlebars Partials
 hbs.registerPartials(__dirname + '/views/partials');
+
+// Handlebars Helpers
 hbs.registerHelper('year',  function() { return new Date().getFullYear(); });
 hbs.registerHelper('json',  function(context) {return JSON.stringify(context); });
 hbs.registerHelper('ifDev', function(options) {if(process.env.NODE_ENV != 'prod') {return options.fn(this); } return options.inverse(this); });
-hbs.registerHelper('isset', function (value, safeValue) {
-    var out = value || safeValue;
-    return new Handlebars.SafeString(out);
-});
+hbs.registerHelper('isSet', function (value, safeValue) {var out = value || safeValue; return new Handlebars.SafeString(out); });
 
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -110,7 +107,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Route Set Up ============
 // =========================
 
-var route_obj = {'/':'pages', '/auth':'auth', '/api':'api'};
+var route_obj = {'/':'pages', '/auth':'auth', '/api':'api', '/admin': 'admin'};
 for (var path in route_obj) {
   app.use(config.base_url+path, require('./routes/'+route_obj[path]));
 }
