@@ -11,7 +11,7 @@ module.exports = function(grunt, options) {
 		
 		css:  {
 		    files: ['src/**/*.scss'],
-		    tasks: ['sass:build', 'concat:build_css', 'postcss:build'],
+		    tasks: ['sass:all', 'concat:build_css', 'postcss:all'],
 		    options: {
 		        livereload: true
 		    }

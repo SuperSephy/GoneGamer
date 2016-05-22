@@ -4,11 +4,6 @@ module.exports = function(grunt, options) {
 		options: {
 	        sourceMap: false
 	    },
-	    index: {
-	        files: {
-	            'build/goneGamer.css': 'src/index/css/main.scss'
-	        },
-	    },
 	    all: {
 			files: [{
 				expand: true,
