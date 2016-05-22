@@ -9,7 +9,7 @@
  */
 
 angular
-	.module('goneGamer', ['ngAnimate', 'ui.bootstrap', 'shared_resources'])
+	.module('goneGamer', ['ngAnimate', 'ui.bootstrap', 'sharedResources'])
 
 	.config(function($interpolateProvider, $locationProvider,$compileProvider) {
 		// Handlebars also uses {{ }} for replacing values - switch Angular to {[ ]} 
