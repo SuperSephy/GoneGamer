@@ -32,9 +32,7 @@
 
     <body>
 
-        <div class="page container" ng-app="goneGamer">
-
-            <small>This is the {{title}} Page. (default.hbs)</small>
+        <div class="page container" ng-app="{{#if app}}{{app}}{{else}}goneGamer{{/if}}">
 
             {{!-- "body" is handlebars default to load inner content --}}
             {{{body}}}
