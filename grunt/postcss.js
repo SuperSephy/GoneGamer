@@ -7,7 +7,7 @@ module.exports = function(grunt, options) {
 		        }) // add vendor prefixes
 		    ]
 		},
-		build: {
+		all: {
 		    src: "public/static/**/css/*.css"
 		}
 	}; // End return object

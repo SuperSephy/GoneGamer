@@ -1,7 +1,7 @@
 module.exports = function (grunt, options) {
 
 	return {
-		game: [
+		all: [
 			'build/',			// build files
 			'public/static/**'	// public assets
 		]

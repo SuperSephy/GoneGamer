@@ -3,9 +3,9 @@ module.exports = function(grunt, options) {
 		release: {
             files: [{
                 expand: true,
-                cwd: 'build/index',
+                cwd: 'build/goneGamer',
                 src: '*.css',
-                dest: 'public/static/css/index/',
+                dest: 'public/static/css/goneGamer/',
                 ext: '.min.css'
             }]
         }

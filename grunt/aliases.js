@@ -3,12 +3,13 @@ module.exports = function (grunt, options) {
     
     return {
         'build': [
-            'newer:clean:game',
+            'newer:clean:all',
             'newer:copy:fonts',
-            'newer:copy:games',
-            'newer:sass:build',
+            'newer:copy:all',
+            'newer:sass:all',
             'newer:concat:build_css',
-            'newer:postcss:build',
+            'newer:postcss:all',
+            'newer:jshint',
             'newer:concat:build_js'
         ],
 
@@ -19,15 +20,16 @@ module.exports = function (grunt, options) {
         ],
 
         'release': [
-            'clean:game',
+            'clean:all',
             'copy:fonts',
-            'copy:games',
-            'sass:build',
+            'copy:all',
+            'sass:all',
             'concat:release_css',
             'cssmin:release',
-            'postcss:build',
+            'postcss:all',
+            'jshint',
             'concat:release_js',
-            'newer:uglify:build'
+            'uglify:release'
         ]
     };
 };

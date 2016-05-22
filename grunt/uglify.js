@@ -5,9 +5,9 @@ module.exports = function(grunt, options) {
 		    banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
 		    beautify: false
 		},
-		build: {
+		release: {
 		    files: {
-		        'public/static/js/script.min.js':['build/script.js']
+		        'public/static/goneGamer/js/script.min.js':['build/goneGamer/script.js']
 		    }
 		}
 	}; // End return object

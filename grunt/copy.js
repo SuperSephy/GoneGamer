@@ -7,11 +7,11 @@ module.exports = function(grunt, options) {
 				expand: true,
 				cwd: 'node_modules/font-awesome/fonts/',
 				src: ['**'],
-				dest: 'public/static/index/fonts'
+				dest: 'public/static/goneGamer/fonts'
 			}]
 		},
 
-		games: {
+		all: {
 			files: [{
 				expand:true, 
 				cwd: 'src/',
