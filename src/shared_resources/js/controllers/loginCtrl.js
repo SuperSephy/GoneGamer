@@ -1,5 +1,5 @@
 angular
-	.module('shared_resources')
+	.module('sharedResources')
 	.controller('loginCtrl', function($scope, $http, globalServices){
 
 		var logr = function(message) {globalServices.logr(message, 'loginCtrl'); }
@@ -37,7 +37,7 @@ angular
 						$scope.numAttempts 	= null;
 						$scope.lockedUntil 	= null;
 
-						if (resp.err_no || resp.err_no == 0) {
+						if (resp.err_no || resp.err_no === 0) {
 							switch (resp.err_no) {
 								case 0:
 									$scope.loginFail 	= 0;

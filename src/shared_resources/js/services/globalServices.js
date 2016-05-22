@@ -1,5 +1,5 @@
 angular
-	.module('shared_resources')
+	.module('sharedResources')
 
 	.service('globalServices', function ($http) {
 

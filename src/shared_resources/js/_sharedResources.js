@@ -6,7 +6,7 @@
  */
 
 angular
-	.module('shared_resources', [])
+	.module('sharedResources', [])
 
 	.config(function($interpolateProvider, $locationProvider, $compileProvider) {
 		// Handlebars also uses {{ }} for replacing values - switch Angular to {[ ]} 

@@ -1,5 +1,5 @@
 angular
-	.module('shared_resources')
+	.module('sharedResources')
 	.controller('registrationCtrl', function($scope, $http, globalServices){
 
 		var logr = function(message) {globalServices.logr(message, 'registrationCtrl'); }
