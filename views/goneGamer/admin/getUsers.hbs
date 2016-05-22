@@ -1,0 +1,50 @@
+
+<div id="getUsers" ng-controller="getUsersCtrl" ng-init="users={{json users}}">
+
+	<h1 style="display:inline-block">Admin: Get Users Table</h1>
+	
+	<button class="btn btn-danger pull-right" ng-click="delete_users()" style="margin-left:10px;"><i class="fa fa-times"></i> Delete Selected</button>
+	<button class="btn btn-success pull-right" ng-click="unlock_users()"><i class="fa fa-unlock-alt"></i> Unlock Selected</button>
+
+	<div class="form-group">
+		<div class="input-group">
+			<div class="input-group-addon"><i class="fa fa-search"></i> Search:</div>
+			<input type="text" class="form-control" ng-model="search" placeholder="Search for a User..." >
+		</div>      
+	</div>
+
+	<table class="table table-bordered table-striped table-hover" id="getUsersTable">
+		<thead>
+			<tr>
+				<th></th>
+				<th ng-repeat="(key, header) in headers" ng-click="sort(key)" ng-cloak style="cursor:pointer">
+					<span class="fa" ng-show="sortKey==key" ng-class="{'fa-caret-up':reverse,'fa-caret-down':!reverse}"></span> <span ng-bind="header"></span>
+				</th>
+				<th>Delete</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="user in users | orderBy:sortType:reverse | filter:search" ng-class="{'table-info': user.admin, 'table-danger': user.lockUntil}">
+				<td> 
+					<input type="checkbox" ng-model="selected[user._id]">
+				</td>
+				<td ng-repeat="(key, header) in headers">
+					<span ng-if="key != 'lastLogin' && key != 'admin' && key != 'lockUntil'" ng-bind="user[key]"></span>
+					<span ng-if="key == 'admin' && user[key]"><i class="fa fa-check" style="color: green"></i></span>
+					<span ng-if="key == 'lastLogin'" ng-bind="toDate(user[key])"></span>
+					<button ng-if="key == 'lockUntil' && user[key]"class="btn btn-block btn-success" ng-click="unlock_users(user._id)"><i class="fa fa-unlock-alt"></i> Unlock</button>
+				</td>
+				<td>
+					<button class="btn btn-block btn-danger" ng-click="delete_users(user._id)"><i class="fa fa-times"></i> Delete</button>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+
+	{{!-- <h2>Users</h2>
+	<pre ng-bind="users | json"></pre> --}}
+
+	<h2>Selected Users</h2>
+	<pre ng-bind="selected | json"></pre>
+	
+</div>

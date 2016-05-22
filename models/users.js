@@ -4,7 +4,7 @@ var mongoose 			= require('mongoose'),							// Mongo ORM
     log 				= require('debug')('goneGamer:model:users'),	// Log to console with details
 	bcrypt 				= require('bcrypt'),							// Password hash
     SALT                = 10,											// How many times password is salted
-    MAX_LOGIN_ATTEMPTS  = 3,
+    MAX_LOGIN_ATTEMPTS  = 5,
     LOCK_TIME           = 1,
     LOCK_INTERVAL 		= 'hour';
 
@@ -143,6 +143,22 @@ UserSchema.static('getAuthenticated', function (userID, password, cb) {
                 return cb(null, null, reasons.PASSWORD_INCORRECT, Math.max(MAX_LOGIN_ATTEMPTS - (user.loginAttempts + 1), 0));
             });
         });
+    });
+});
+
+// Unlock an array users by their mongo_ids
+UserSchema.static('unlock_ids', function(_ids, cb) {
+    this.update({ _id: {$in: _ids} }, { $set: {loginAttempts: 0}, $unset: {lockUntil: 1} }, function(err, result){
+        if (err) return cb(err);
+        return cb(null, result);
+    });
+});
+
+// Unlock an array users by their mongo_ids
+UserSchema.static('delete_ids', function(_ids, cb) {
+    this.remove({ _id: {$in: _ids} }, function(err, result){
+        if (err) return cb(err);
+        return cb(null, result);
     });
 });
 
