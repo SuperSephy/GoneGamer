@@ -3,6 +3,7 @@
 
     Receives object from route/pages.js
     {   title:'Home Page',
+        projectName: 'home',
         pageName: 'home'
         url:req.url,
         query:req.query,
@@ -25,13 +26,13 @@
 
         <title>{{title}}</title>
 
-        <link href="/static/{{pageName}}/css/style.min.css" type="text/css" rel="stylesheet">
+        <link href="/static/{{projectName}}/css/style.min.css" type="text/css" rel="stylesheet">
 
     </head>
 
     <body>
 
-        <div class="page" ng-app="goneGamer">
+        <div class="page container" ng-app="goneGamer">
 
             <small>This is the {{title}} Page. (default.hbs)</small>
 
@@ -40,7 +41,7 @@
 
         </div>
 
-        <script type="text/javascript" src="/static/{{pageName}}/js/script.min.js"></script>
+        <script type="text/javascript" src="/static/{{projectName}}/js/script.min.js"></script>
 
     </body>
 </html>

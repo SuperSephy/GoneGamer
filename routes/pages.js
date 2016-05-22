@@ -16,6 +16,7 @@ router.use(function (req, res, next) {
 
 	// get the url pathname 
 	var pathname = parseurl(req).pathname
+	if (/static|stylesheet|js/.test(pathname))
 
 	// count the views 
 	views[pathname] = (views[pathname] || 0) + 1
@@ -27,12 +28,19 @@ router.use(function (req, res, next) {
  */
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-	index.index(req, function(data, err){
-		if (err) throw err;
+router
+	.get('/', function(req, res, next) {
+		index.index(req, function(data, err){
+			if (err) throw err;
 
-		res.render('goneGamer/index', {layout: 'layouts/default', title:'Gone Gamer Home', pageName: 'index', data: data, things: "test"});
+			res.render('goneGamer/index', {layout: 'layouts/default', title:'Gone Gamer Home', projectName: 'goneGamer', data: data, things: "test"});
+		});
+	})
+
+	.get('/newGame', function(req, res) {
+		res.render('goneGamer/newGame', {layout: 'layouts/default', title: 'Gone Gamer New Game', projectName: 'goneGamer'});
 	});
-});
+
+
 
 module.exports = router;
