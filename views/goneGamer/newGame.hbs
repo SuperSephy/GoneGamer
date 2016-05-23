@@ -1,0 +1,109 @@
+
+<div id="newGame" ng-controller="newGameCtrl">
+
+	<form id="newGameForm" class="form" name="newGameForm" ng-submit="registerSubmit(newGameForm.$valid)" novalidate>
+		
+		<div id="accordion" role="tablist" aria-multiselectable="true">
+
+			<div class="card">
+				<div class="card-header">
+					<a data-toggle="collapse" data-parent="#accordion" href="#gameDetails">
+						<h4>Game Details</h4>
+					</a>
+				</div>
+
+				<div id="gameDetails" class="card-block collapse in">
+					<h4 class="card-title">Game Details</h4>
+
+					<p>The game name below will be used by other gamers to find and apply to join your game.</p>
+
+					{{!-- Game Name --}}
+					<div class="form-group">
+
+						<div class="input-group input-group-sm" ng-class="{ 'has-danger' : newGameForm.name.$invalid && !newGameForm.name.$pristine || checkedNames[newGame.name] == 'unavailable', 'has-success': newGameForm.name.$valid && !newGameForm.name.$pristine && checkedNames[newGame.name] == 'available', 'has-warning': newGameForm.name.$valid && !newGameForm.name.$pristine && !checkedNames[newGame.name]}">
+
+							<span class="input-group-addon" id="name-addon">Name:</span>
+
+							<input type="text" class="form-control" name="name" aria-describedby="name-addon name-addon2" ng-model="newGame.name" ng-minlength="4" ng-maxlength="20" ng-class="{ 'form-control-danger' : newGameForm.name.$invalid && !newGameForm.name.$pristine || checkedNames[newGame.name] == 'unavailable' , 'form-control-success': newGameForm.name.$valid && !newGameForm.name.$pristine && checkedNames[newGame.name] == 'available', 'form-control-warning': newGameForm.name.$valid && !newGameForm.name.$pristine && !checkedNames[newGame.name] }" required>
+							
+							<span class="input-group-btn">
+
+								<button class="btn" type="button" ng-click="checkName(newGame.name)" ng-disabled="newGameForm.name.$invalid || checkedNames[newGame.name]" ng-class="{ 'btn-primary': !checkedNames[newGame.name], 'btn-success': checkedNames[newGame.name] == 'available', 'btn-danger': checkedNames[newGame.name] == 'unavailable'}">
+
+									<i class="fa fa-exclamation-triangle" aria-hidden="true"></i> Check availability
+								</button>
+
+							</span>
+
+						</div>	{{! End Game Name Input Group }}
+
+						<small ng-show="newGameForm.name.$error.required && !newGameForm.name.$pristine" class="help-block">*Please select a game name.</small>
+						<small ng-show="newGameForm.name.$error.minlength" class="help-block">Game Name is too short. (minimum of 4 characters)</small>
+		    			<small ng-show="newGameForm.name.$error.maxlength" class="help-block">Game Name is too long. (maximum of 20 characters)</small>
+		    			<small ng-show="checkedNames[newGame.name]" class="help-block">"{[newGame.name]}" is <span ng-bind="checkedNames[newGame.name]"></span></small>
+
+					</div> {{! End Game Name Form Group }}
+
+					<button class="btn btn-primary btn-block" ng-click="step(2)">Next</button>
+
+				</div> {{! End Game Details Collapse }}
+
+			</div> {{! End Game Details Card}}
+
+			<div class="card">
+				<div class="card-header">
+					<a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#templateDetails" >
+						<h4>Character Template</h4>
+					</a>
+				</div>
+
+				<div id="templateDetails" class="card-block collapse">
+					<h4 class="card-title">Starting Character Template</h4>
+
+					<div class="form-group">
+
+						<div class="btn-group">
+							<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-bind="newGame.template || 'Select Character Template'">
+							</button>
+							<div class="dropdown-menu">
+								<a class="dropdown-item" ng-click="setTemplate('New')">New Template</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" ng-click="setTemplate('sample1')">Sample 1</a>
+								<a class="dropdown-item" ng-click="setTemplate('sample2')">Sample 2</a>
+								<a class="dropdown-item" ng-click="setTemplate('sample3')">Sample 3</a>
+							</div>
+						</div>
+
+					</div>
+
+					<div class="card card-block text-xs-center" ng-repeat="attr_obj in template">
+						<h4 class="card-title">{[attr_obj.name]}:</h4>
+						
+						<div class="form-group" ng-repeat="attr in attr_obj.attributes">
+							<div class="input-group" ng-repeat="(key, value) in attr">
+								<span class="input-group-addon">{[key]}</span>
+								<input type="text" class="form-control" ng-bind="attr[key]">
+							</div>
+						</div>
+
+						<p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+					</div>
+
+					<button class="btn btn-success btn-block"> <i class="fa fa-floppy-o"></i> Save</button>
+
+				</div> {{! End Character Template Collapse}}
+
+		</div>
+
+	</form>
+
+	Template
+	<pre ng-bind="template | json"></pre>
+
+	New Game
+	<pre ng-bind="newGame | json"></pre>
+
+	Checked Names
+	<pre ng-bind="checkedNames | json"></pre>
+	
+</div>

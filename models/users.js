@@ -10,12 +10,20 @@ var mongoose 			= require('mongoose'),							// Mongo ORM
 
 var Schema 				= mongoose.Schema;
 
+var friendSchema        = new Schema({
+    id:             {type: String,      required: true},
+    name:           {type: String,      required: true},
+    nickName:              String
+});
+
 // set up a mongoose model (passed in module.exports)
-var UserSchema 			= new Schema({ 
+var userSchema 			= new Schema({ 
 	userID: 		{ type: String, 	required: true, trim: true, index: { unique: true } },
     playerName: 	{ type: String, 	required: true, trim: true }, 
     password: 		{ type: String, 	required: true }, 
     email: 			{ type: String, 	required: true },
+
+    friends:        [friendSchema],
 
     lastLogin: 		{ type: Date, 		default: Date.now},
     loginAttempts: 	{ type: Number, 	default: 0 },
@@ -29,13 +37,13 @@ var UserSchema 			= new Schema({
 });
 
 
-UserSchema.virtual('isLocked').get(function() {
+userSchema.virtual('isLocked').get(function() {
     // check for a future lockUntil timestamp
     return !!(this.lockUntil && this.lockUntil > moment().toDate() );
 });
 
 // Ensure Passwords are salted before saving
-UserSchema.pre('save', function(next) {
+userSchema.pre('save', function(next) {
     var user = this;
 
     // only hash the password if it has been modified (or is new)
@@ -57,7 +65,7 @@ UserSchema.pre('save', function(next) {
 });
 
 // Compare submitted password to saved password
-UserSchema.methods.comparePassword = function(candidatePassword, cb) {
+userSchema.methods.comparePassword = function(candidatePassword, cb) {
     bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
         if (err) return cb(err);
         cb(null, isMatch);
@@ -65,7 +73,7 @@ UserSchema.methods.comparePassword = function(candidatePassword, cb) {
 };
 
 // Increment the login attempts if password doesn't match - mitigates brute force attacks
-UserSchema.methods.incLoginAttempts = function(cb) {
+userSchema.methods.incLoginAttempts = function(cb) {
     // if we have a previous lock that has expired, restart at 1
     if (this.lockUntil && this.lockUntil < moment().toDate()) {
         return this.update({
@@ -83,7 +91,7 @@ UserSchema.methods.incLoginAttempts = function(cb) {
 };
 
 // expose enum on the model, and provide an internal convenience reference 
-var reasons = UserSchema.statics.failedLogin = {
+var reasons = userSchema.statics.failedLogin = {
     NOT_FOUND: 0,
     PASSWORD_INCORRECT: 1,
     MAX_ATTEMPTS: 2
@@ -97,7 +105,7 @@ var reasons = UserSchema.statics.failedLogin = {
  * @param  {Function} 	cb 				Callback function
  * @return {Object}               		{err, user, if user not found/pw mismath/or locked - give reason}
  */
-UserSchema.static('getAuthenticated', function (userID, password, cb) {
+userSchema.static('getAuthenticated', function (userID, password, cb) {
 	// log('getAuthenticated called. Looking for: '+userID);
 
     this.findOne({ userID: userID }, function(err, user) {
@@ -147,7 +155,7 @@ UserSchema.static('getAuthenticated', function (userID, password, cb) {
 });
 
 // Unlock an array users by their mongo_ids
-UserSchema.static('unlock_ids', function(_ids, cb) {
+userSchema.static('unlock_ids', function(_ids, cb) {
     this.update({ _id: {$in: _ids} }, { $set: {loginAttempts: 0}, $unset: {lockUntil: 1} }, function(err, result){
         if (err) return cb(err);
         return cb(null, result);
@@ -155,11 +163,12 @@ UserSchema.static('unlock_ids', function(_ids, cb) {
 });
 
 // Unlock an array users by their mongo_ids
-UserSchema.static('delete_ids', function(_ids, cb) {
+userSchema.static('delete_ids', function(_ids, cb) {
     this.remove({ _id: {$in: _ids} }, function(err, result){
         if (err) return cb(err);
         return cb(null, result);
     });
 });
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('Friend', friendSchema);

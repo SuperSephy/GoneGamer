@@ -4,7 +4,8 @@ var express 	= require('express'),
     jwt 		= require('jsonwebtoken'),					// used to create, sign, and verify tokens - https://www.npmjs.com/package/jsonwebtoken
     mongoose	= require('mongoose'),						// used to access mongo db - https://www.npmjs.com/package/mongoose
 
-    User   		= require('../models/users'); 				// get our mongoose model
+    User   		= require('../models/users'), 				// get our mongoose user model
+    Game 		= require('../models/games');				// get out mongoose games model
 
 var router 		= express.Router();
 
@@ -14,6 +15,15 @@ var router 		= express.Router();
  */
 
 // API ROUTES -------------------
+
+router.post('/checkGameName', function(req, res){
+	// return res.json({status: 'ok', name: req.body.name});
+	Game.findOne({name: req.body.name}, function(err, game){
+		if (err) return res.json({status: 'err', err: err});
+		return res.json({status: 'ok', name_exists: !!game});
+		
+	});
+});
 
 // route to authenticate a user (POST http://localhost:8080/api/authenticate)
 router.post('/authenticate', function(req, res) {
