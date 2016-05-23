@@ -1,11 +1,11 @@
 /**
  * PRIMARY MODULE CREATION
  *
- * Creates the `index` angular module and sets up some global configs.
- *
- * Creates the Index Controller that manages screen toggling
+ * Creates the `goneGamer` angular module and sets up some global configs.
  *
  * Imports the `shared_resources` angular module to limit redundant services shared between controllers 
+ *
+ * Imports the ui.bootstrap library
  */
 
 angular
@@ -22,13 +22,9 @@ angular
 		$compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|ftp|mailto|tel|file|blob):/);
 	})
 
-	// Overall Index Controller
-	.controller('indexCtrl', function($scope, globalServices) {
+	.controller('goneGamerCtrl', function($scope, globalServices){
 
-		var logr = function(message) {globalServices.logr(message, 'indexCtrl'); }
+		var logr = function(message) {globalServices.logr(message, 'goneGamerCtrl'); }
 		logr('Registered.');
 
 	});
-
-
-

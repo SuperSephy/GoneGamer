@@ -54,9 +54,7 @@ module.exports = function (grunt, options) {
 
 				// Application Specific
 				'src/shared_resources/**/*.js',
-				'src/admin/**/*.js',
-				'src/index/**/*.js',
-				'src/newGame/**/*.js',
+				'src/pages/**/*.js'
 			],
 			dest: 'public/static/goneGamer/js/script.min.js'
 		},
@@ -75,9 +73,7 @@ module.exports = function (grunt, options) {
 
 				// Application Specific
 				'src/shared_resources/**/*.js',
-				'src/admin/**/*.js',
-				'src/index/**/*.js',
-				'src/newGame/**/*.js'
+				'src/pages/**/*.js',
 			],
 			dest: 'build/goneGamer/script.js'
 		}
