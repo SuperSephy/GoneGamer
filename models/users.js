@@ -171,4 +171,3 @@ userSchema.static('delete_ids', function(_ids, cb) {
 });
 
 module.exports = mongoose.model('User', userSchema);
-module.exports = mongoose.model('Friend', friendSchema);
