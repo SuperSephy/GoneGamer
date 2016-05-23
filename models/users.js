@@ -11,9 +11,9 @@ var mongoose 			= require('mongoose'),							// Mongo ORM
 var Schema 				= mongoose.Schema;
 
 var friendSchema        = new Schema({
-    id:             {type: String,      required: true},
-    name:           {type: String,      required: true},
-    nickName:              String
+    id:             String,
+    name:           String,
+    nickName:       String
 });
 
 // set up a mongoose model (passed in module.exports)
